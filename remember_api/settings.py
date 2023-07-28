@@ -44,9 +44,8 @@ if 'DEV' not in os.environ:
 
 
 ALLOWED_HOSTS = [
-    "https://app-remember-api-0c8e0548ec15.herokuapp.com", 
-    "localhost", 
-    '8000-seaniboy200-rememberapi-aahgjtzy025.ws-eu102.gitpod.io'
+    os.environ.get('ALLOWED_HOST_HEROKU'),
+    os.environ.get('ALLOWED_HOST_DEV'),
 ]
 
 CLOUDINARY_STORAGE = {
