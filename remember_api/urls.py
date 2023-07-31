@@ -20,5 +20,6 @@ from .views import root_route
 urlpatterns = [
     path('', root_route),
     path('', include('app_profile.urls')),
+    path('', include('app_task.urls')),
     path('admin/', admin.site.urls),
 ]

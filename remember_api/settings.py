@@ -74,6 +74,7 @@ INSTALLED_APPS = [
 
 
     'app_profile',
+    'app_task',
 ]
 
 SITE_ID = 1
