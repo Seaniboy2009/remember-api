@@ -49,6 +49,16 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_DEV'),
 ]
 
+if 'CLIENT_ORIGIN' IN os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+if 'CLIENT_ORIGIN_DEV' IN os.environ:
+    CORS_ALLOWED_ORIGINS_REGEXES = [
+        os.environ.get('CLIENT_ORIGIN_DEV')
+    ]
+
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
