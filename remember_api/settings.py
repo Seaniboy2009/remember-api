@@ -49,15 +49,22 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_DEV'),
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CORS_ALLOWED_ORIGINS'),
+    os.environ.get('CORS_ALLOWED_ORIGINS_DEV'),
+]
 
-if 'CLIENT_ORIGIN_DEV' in os.environ:
-    CORS_ALLOWED_ORIGINS_REGEXES = [
-        os.environ.get('CLIENT_ORIGIN_DEV')
-    ]
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# if 'CLIENT_ORIGIN' in os.environ:
+#     CORS_ALLOWED_ORIGINS = [
+#         os.environ.get('CLIENT_ORIGIN')
+#     ]
+
+# if 'CLIENT_ORIGIN_DEV' in os.environ:
+#     CORS_ALLOWED_ORIGINS_REGEXES = [
+#         os.environ.get('CLIENT_ORIGIN_DEV')
+#     ]
 
 CORS_ALLOW_CREDENTIALS = True
 
