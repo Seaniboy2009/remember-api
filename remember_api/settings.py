@@ -59,6 +59,8 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         os.environ.get('CLIENT_ORIGIN_DEV')
     ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
@@ -81,6 +83,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
+    'corsheaders',
 
 
     'app_profile',
@@ -90,6 +93,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
