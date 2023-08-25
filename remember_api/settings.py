@@ -38,11 +38,14 @@ REST_FRAMEWORK = {
 }
 
 # Changes the look of the URL to api view
-if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer',
-    ]
+# if 'DEV' not in os.environ:
+#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+#         'rest_framework.renderers.JSONRenderer',
+#     ]
 
+# REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+#     'rest_framework.renderers.JSONRenderer',
+# ]
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_HEROKU'),
