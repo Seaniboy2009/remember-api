@@ -48,16 +48,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-
-# Changes the look of the URL to api view
-# if 'DEV' not in os.environ:
-#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-#         'rest_framework.renderers.JSONRenderer',
-#     ]
-
-# REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-#     'rest_framework.renderers.JSONRenderer',
-# ]
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_HEROKU'),
@@ -92,6 +86,12 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'remember_api.serializers.CurrentUserSerializer'
+}
 
 # Application definition
 
