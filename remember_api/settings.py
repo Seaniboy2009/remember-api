@@ -27,16 +27,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-#         'rest_framework.permissions.AllowAny',
-#     ],
-#     'DATETIME_FORMAT': '%d %b %Y',
-# }
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
@@ -48,10 +38,16 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-if 'DEV' not in os.environ:
+if 'DEV' in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
+
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_HEROKU'),
@@ -63,30 +59,11 @@ CORS_ALLOWED_ORIGINS = [
     os.environ.get('CORS_ALLOWED_ORIGINS_DEV'),
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True
-
-# if 'CLIENT_ORIGIN' in os.environ:
-#     CORS_ALLOWED_ORIGINS = [
-#         os.environ.get('CLIENT_ORIGIN')
-#     ]
-
-# if 'CLIENT_ORIGIN_DEV' in os.environ:
-#     CORS_ALLOWED_ORIGINS_REGEXES = [
-#         os.environ.get('CLIENT_ORIGIN_DEV')
-#     ]
-
 CORS_ALLOW_CREDENTIALS = True
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
-
-REST_USE_JWT = True
-JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
 
 
 REST_AUTH_SERIALIZERS = {
