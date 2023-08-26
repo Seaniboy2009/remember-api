@@ -12,33 +12,34 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import re
 import dj_database_url
 if os.path.exists('env.py'):
     import env
 
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+}
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        # if 'DEV' in os.environ
+        # else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
-    'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-    'DATETIME_FORMAT': '%d %b %Y',
+    # 'DEFAULT_PERMISSIONS_CLASSES': [(
+    #     'rest_framework.permissions.AllowAny'
+    # )],
+    # 'DEFAULT_PAGINATION_CLASS':
+    #     'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
+    # 'DATETIME_FORMAT': '%d %b %Y',
 }
-if 'DEV' in os.environ:
+if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
@@ -49,26 +50,38 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'drf_project5_api.serializers.CurrentUserSerializer'
+}
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = 'DEV' in os.environ
+
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_HEROKU'),
     os.environ.get('ALLOWED_HOST_DEV'),
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CORS_ALLOWED_ORIGINS'),
-    os.environ.get('CORS_ALLOWED_ORIGINS_DEV'),
-]
+if 'CORS_ALLOWED_ORIGINS' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CORS_ALLOWED_ORIGINS')
+    ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     os.environ.get('CORS_ALLOWED_ORIGINS'),
+#     os.environ.get('CORS_ALLOWED_ORIGINS_DEV'),
+# ]
+
+if 'CORS_ALLOWED_ORIGINS_DEV' in os.environ:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+       os.environ.get("CORS_ALLOWED_ORIGINS_DEV"),
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
-
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
-}
-
-
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'remember_api.serializers.CurrentUserSerializer'
-}
 
 # Application definition
 
@@ -82,7 +95,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
-    # 'django_filters',
+    'django_filters',
     'rest_framework.authtoken',
     'dj_rest_auth',
     'django.contrib.sites',
