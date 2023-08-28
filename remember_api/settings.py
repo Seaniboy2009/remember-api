@@ -32,9 +32,9 @@ REST_FRAMEWORK = {
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ),
-    'DEFAULT_PERMISSIONS_CLASSES': [(
-        'rest_framework.permissions.IsAuthenticated'
-    )],
+    # 'DEFAULT_PERMISSIONS_CLASSES': [(
+    #     'rest_framework.permissions.IsAuthenticated'
+    # )],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -53,6 +53,9 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
+# NEW
+REST_AUTH = { 'USE_JWT': True, 'JWT_AUTH_HTTPONLY':False}
+
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_project5_api.serializers.CurrentUserSerializer'
 }
@@ -70,22 +73,29 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST_DEV'),
 ]
 
-if 'CORS_ALLOWED_ORIGINS' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CORS_ALLOWED_ORIGINS')
-    ]
+# if 'CORS_ALLOWED_ORIGINS' in os.environ:
+#     CORS_ALLOWED_ORIGINS = [
+#         os.environ.get('CORS_ALLOWED_ORIGINS'),
+#     ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     os.environ.get('CORS_ALLOWED_ORIGINS'),
-#     os.environ.get('CORS_ALLOWED_ORIGINS_DEV'),
-# ]
-
-if 'CORS_ALLOWED_ORIGINS_DEV' in os.environ:
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-       os.environ.get("CORS_ALLOWED_ORIGINS_DEV"),
-    ]
+# if 'CORS_ALLOWED_ORIGINS_DEV' in os.environ:
+#     CORS_ALLOWED_ORIGIN_REGEXES = [
+#        os.environ.get("CORS_ALLOWED_ORIGINS_DEV"),
+#     ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = [
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+]
 
 # Application definition
 

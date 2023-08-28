@@ -16,3 +16,10 @@ class TasksList(generics.ListCreateAPIView):
     # will be thrown
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    queryset = Task.objects.all().order_by('-created_on')
