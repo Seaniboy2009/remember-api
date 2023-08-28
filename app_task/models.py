@@ -7,12 +7,12 @@ class Task(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    # image = models.ImageField(
-    #     # upload_to='images/',
-    #     # default='../media/images/default_post_keitpn',
-    # )
     category = models.CharField(max_length=255, default='Other')
     completed = models.BooleanField(default=False)
+    image = models.ImageField(
+        upload_to='images/',
+        default='../media/images/default_profile_o21i6o_h3tqjf',
+    )
 
     class Meta:
         ordering = ['-created_on']

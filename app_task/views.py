@@ -3,7 +3,7 @@ from .models import Task
 from .serializers import TaskSerializer
 from remember_api.permissions import IsOwnerOrReadOnly
 
-class TasksList(generics.ListAPIView):
+class TasksList(generics.ListCreateAPIView):
 
     # This gets the serialiser information to display 
     serializer_class = TaskSerializer
@@ -11,3 +11,8 @@ class TasksList(generics.ListAPIView):
 
     # Query is set to all
     queryset = Task.objects.all()
+
+    # This is needed to assign an owner to the new task, or an error
+    # will be thrown
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
