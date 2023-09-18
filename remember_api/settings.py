@@ -128,29 +128,29 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# if 'CORS_ALLOWED_ORIGINS' in os.environ:
-#     CORS_ALLOWED_ORIGINS = [
-#         os.environ.get('CORS_ALLOWED_ORIGINS'),
-#     ]
+if 'CORS_ALLOWED_ORIGINS' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CORS_ALLOWED_ORIGINS'),
+    ]
 
-# if 'CORS_ALLOWED_ORIGINS_DEV' in os.environ:
-#     CORS_ALLOWED_ORIGIN_REGEXES = [
-#        os.environ.get("CORS_ALLOWED_ORIGINS_DEV"),
-#     ]
+if 'CORS_ALLOWED_ORIGINS_DEV' in os.environ:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+       os.environ.get("CORS_ALLOWED_ORIGINS_DEV"),
+    ]
 
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_HEADERS = [
-# 'accept',
-# 'accept-encoding',
-# 'authorization',
-# 'content-type',
-# 'dnt',
-# 'origin',
-# 'user-agent',
-# 'x-csrftoken',
-# 'x-requested-with',
-# ]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = [
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+]
 
 # Application definition
 
