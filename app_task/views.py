@@ -1,25 +1,36 @@
 from rest_framework import generics, permissions
-from .models import Task
-from .serializers import TaskSerializer
+from .models import Task, TestingTask
+from .serializers import TaskSerializer, TestingTaskSerializer
+from rest_framework.views import APIView
 from remember_api.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from remember_api.views import MyTokenObtainPairView
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class TasksList(generics.ListCreateAPIView):
-
-    # This gets the serialiser information to display 
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticated]
 
-    # Query is set to all
     queryset = Task.objects.all()
 
-    # This is needed to assign an owner to the new task, or an error
-    # will be thrown
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        print('create')
+        serializer.save(owner='admin')
 
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsAuthenticated]
 
     queryset = Task.objects.all().order_by('-created_on')
+
+
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
+class TestingTaskListView(generics.ListCreateAPIView):
+    # permission_classes = [IsAuthenticated]
+    serializer_class = TestingTaskSerializer
+
+    queryset = TestingTask.objects.all()

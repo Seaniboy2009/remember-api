@@ -19,3 +19,8 @@ class Task(models.Model):
     
     def __str__(self):
         return f"Task:{self.id},Owner:{self.owner}, Task:{self.id}"
+
+class TestingTask(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

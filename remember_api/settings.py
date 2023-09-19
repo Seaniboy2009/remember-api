@@ -26,14 +26,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
     ),
 
-    'DEFAULT_PERMISSION_CLASSES': (
+    # 'DEFAULT_PERMISSION_CLASSES': (
 
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
+    #     'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    # ),
+    'SIMPLE_JWT': {
+        'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Adjust the expiration time as needed
+        'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+        'SLIDING_TOKEN_LIFETIME': timedelta(days=7),
+        'SLIDING_TOKEN_REFRESH_LIFETIME_GRACE_PERIOD': timedelta(days=2),
+        'SLIDING_TOKEN_REFRESH_EASIER': True,
+    },
 }
 
 # REST_FRAMEWORK = {
@@ -56,7 +61,7 @@ REST_FRAMEWORK = {
 # }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -99,7 +104,7 @@ SIMPLE_JWT = {
 #         'rest_framework.renderers.JSONRenderer',
 #     ]
 
-# REST_USE_JWT = True
+REST_USE_JWT = True
 # USE_JWT = True
 # JWT_AUTH_SECURE = True
 # JWT_AUTH_COOKIE = 'my-app-auth'
@@ -150,6 +155,14 @@ CORS_ALLOW_HEADERS = [
 'user-agent',
 'x-csrftoken',
 'x-requested-with',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
 ]
 
 # Application definition
